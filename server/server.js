@@ -6,6 +6,7 @@ const {ObjectID} = require('mongodb');
 var express = require('express');
 var bodyParser = require('body-parser');
 
+const port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -49,8 +50,8 @@ if(!ObjectID.isValid(todoID)) {
 
 });
 
-app.listen(3000, () => {
-  console.log('Started pn port 3000');
+app.listen(port, () => {
+  console.log(`Started pn port ${port}`);
 });
 
 //
