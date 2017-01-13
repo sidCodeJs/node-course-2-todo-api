@@ -24,6 +24,15 @@ res.status(400).send(e);
 });
 });
 
+app.get('/todos', (req, res) => {
+  todo.find().then().then((todos) => {
+    res.send({todos});
+  }, (e) => {
+
+  response.status(400).send(e);
+  })
+})
+
 app.listen(3000, () => {
   console.log('Started pn port 3000');
 });
