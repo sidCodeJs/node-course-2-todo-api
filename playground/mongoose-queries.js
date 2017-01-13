@@ -1,4 +1,4 @@
-const mongoose = require('./../server/db/mongoose').mongoose;
+const {mongoose} = require('./../server/db/mongoose');
 const {todo} = require('./../server/models/todo');
 const user = require('./../server/models/user').user;
 

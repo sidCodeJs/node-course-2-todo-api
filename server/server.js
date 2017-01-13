@@ -1,6 +1,7 @@
-var mongoose = require('./db/mongoose');
-var {todo} = require('./models/todo');
-var {user} = require('./models/user');
+const mongoose = require('./db/mongoose');
+const {todo} = require('./models/todo');
+const {user} = require('./models/user');
+const {ObjectID} = require('mongodb');
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -31,6 +32,21 @@ app.get('/todos', (req, res) => {
 
   response.status(400).send(e);
 });
+});
+
+app.get('/todos/:id', (req, res) => {
+var todoID = req.params.id;
+if(!ObjectID.isValid(todoID)) {
+  res.status(404).send('Please check the ID. It is not valid');
+} else {
+  todo.findById(todoID).then((todo) => {
+    if(!todo){
+      res.status(404).send('No todo found for this ID');
+    }
+    res.status(200).send(todo);
+  }).catch((e) => res.status(400).send(''));
+}
+
 });
 
 app.listen(3000, () => {
