@@ -30,8 +30,8 @@ app.get('/todos', (req, res) => {
   }, (e) => {
 
   response.status(400).send(e);
-  })
-})
+});
+});
 
 app.listen(3000, () => {
   console.log('Started pn port 3000');
