@@ -50,6 +50,22 @@ if(!ObjectID.isValid(todoID)) {
 
 });
 
+app.delete('/todos/:id', (req, res) => {
+var todoID = req.params.id;
+if(!ObjectID.isValid(todoID)) {
+  res.status(404).send('Please check the ID. It is not valid');
+} else {
+  todo.findByIdAndRemove(todoID).then((todo) => {
+    if(!todo){
+      res.status(404).send('No todo found for this ID');
+    }
+    res.status(200).send(todo);
+  }).catch((e) => res.status(400).send(''));
+}
+
+});
+
+
 app.listen(port, () => {
   console.log(`Started pn port ${port}`);
 });
