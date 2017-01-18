@@ -29,6 +29,21 @@ res.status(400).send(e);
 });
 });
 
+app.post('/users/login', (req, res) => {
+  user.findOne({'email':req.body.email}).then((user)=>{
+    if(!user)
+    {res.send('user not found')}
+    return (user.verifyPassword(req.body.password));
+
+  })
+  .then((user)=> {
+    return user.generateAuthToken().then((token) => {
+      res.header('x-auth', token).status(200).send(user);
+    });
+  })
+  .catch((e) => { res.status(400).send(e)});
+});
+
 app.post('/users', (req, res) => {
 var body = _.pick(req.body, ['name','email', 'password']);
 // var user1 = new user ({

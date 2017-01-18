@@ -64,6 +64,21 @@ var token = jwt.sign({_id: user._id.toHexString(), access}, 'salt123').toString(
   })
 };
 
+userSchema.methods.verifyPassword = function(pass) {
+  var user = this;
+  return new Promise ((resolve, reject) => {
+    bcrypt.compare(pass, user.password, (err, res) => {
+      if(res)
+    {  resolve(user);}
+      else {
+        reject();
+      }
+    });
+
+  });
+
+};
+
 userSchema.statics.findByToken = function (token) {
   var userModel = this;
   var decoded;
